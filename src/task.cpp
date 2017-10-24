@@ -34,6 +34,8 @@ Task::Task()
 	localDir = NULL;
 	localFile = NULL;
 	referer = NULL;
+    cookie = NULL;
+    agent = NULL;
 };
 
 Task::~Task()
@@ -41,6 +43,8 @@ Task::~Task()
 	delete[] localDir;
 	delete[] localFile;
 	delete[] referer;
+    delete[] cookie;
+    delete[] agent;
 };
 
 Task&
@@ -51,9 +55,13 @@ Task::operator = (Task& task)
 	delete[] localDir;
 	delete[] localFile;
 	delete[] referer;
+	delete[] cookie;
+	delete[] agent;
 	localDir = StrDup(task.get_local_dir());
 	localFile = StrDup(task.get_local_file());
 	referer = StrDup(task.get_referer());
+    cookie = StrDup(task.get_cookie());
+    agent = StrDup(task.get_agent());
 	fileSize = task.fileSize;
 	isDirectory = task.isDirectory;
 	resumeSupported = task.resumeSupported;
@@ -86,6 +94,18 @@ Task::get_referer(void)
 	return referer;
 };
 
+const char*
+Task::get_cookie(void)
+{
+	return cookie;
+};
+
+const char*
+Task::get_agent(void)
+{
+	return agent;
+};
+
 void
 Task::set_local_dir(const char *dir)
 {
@@ -105,4 +125,19 @@ Task::set_referer(const char *referer)
 {
 	delete[] this->referer;
 	this->referer = StrDup(referer);
+};
+
+
+void
+Task::set_cookie(const char *cookie)
+{
+    delete[] this->cookie;
+    this->cookie = StrDup(cookie);
+};
+
+void
+Task::set_agent(const char *agent)
+{
+	delete[] this->agent;
+	this->agent = StrDup(agent);
 };

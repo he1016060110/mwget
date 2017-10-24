@@ -38,9 +38,13 @@ class Task
 		const char* get_local_dir(void);
 		const char* get_local_file(void);
 		const char* get_referer(void);
+		const char* get_cookie(void);
+		const char* get_agent(void);
 		void set_local_dir(const char *dir);
 		void set_local_file(const char *file);
 		void set_referer(const char *referer);
+        void set_cookie(const char *cookie);
+        void set_agent(const char *agent);
 		Task& operator = (Task& task);
 
 	public:
@@ -59,6 +63,8 @@ class Task
 		char *localDir;
 		char *localFile;
 		char *referer;
+		char *cookie;
+		char *agent;
 };
 
 #endif // _TASK_H

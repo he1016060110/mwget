@@ -54,6 +54,16 @@ HttpPlugin::get_info(Task *task)
 		http.header("Referer", task->url.get_url());
 	}
 
+    if (task->get_cookie() != NULL) {
+		printf("cookie:%s\n", task->get_cookie());
+        http.header("Cookie",task->get_cookie());
+    }
+
+	if (task->get_agent() != NULL) {
+		printf("agent:%s\n", task->get_agent());
+		http.header("User-Agent",task->get_agent());
+	}
+
 	if(task->fileSize > 0){
 		// test the Range
 		http.set_range(1);
@@ -202,6 +212,14 @@ HttpPlugin::download(Task& task, Block *block)
 		http.header("Referer", task.get_referer());
 	}else{
 		http.header("Referer", task.url.get_url());
+	}
+
+    if (task.get_cookie() != NULL) {
+        http.header("Cookie", task.get_cookie());
+    }
+
+	if (task.get_agent() != NULL) {
+		http.header("User-Agent", task.get_agent());
 	}
 
 	if(task.proxy.get_type() == HTTP_PROXY){

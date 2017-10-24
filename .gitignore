@@ -1,0 +1,4 @@
+.idea/
+*xml
+.pc/*
+cmake-build-debug/*

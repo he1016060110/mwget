@@ -39,12 +39,14 @@ print_help()
 	printf("%s mwget %s\n",_("Usage: "),_(" [Options]... [URL]..."));
 	
 	cout<<_("Options:")<<endl;
+	cout<<_("  -a,  --agent          user-agent")<<endl;
 	cout<<_("  -b,  --debug          Show the debug message")<<endl;
 	cout<<_("  -c,  --count=num      Set the retry count to [num], no limit when \"0\", the default is \"99\"")<<endl;
 	cout<<_("  -d,  --directory=dir  Set the local direcotry to [dir], the default is \".\"")<<endl;
 	cout<<_("  -f,  --file=file      Rename the file to [file]")<<endl;
 	cout<<_("  -h,  --help           A brief summary of all the options")<<endl;
 	cout<<_("  -i,  --interval=num   Set the ftp retry interval to [num] seconds, the default is \"5\"")<<endl;
+	cout<<_("  -k,  --cookie=str     Set cookie")<<endl;
 	cout<<_("  -n,  --number=num     Use [num] connections instead of the default (4)")<<endl;
 	cout<<_("  -r,  --referer=URL    Include `Referer: [URL]\' header in HTTP request.")<<endl;
 	cout<<_("  -t,  --timeout=num    Set the connection timeout to [num] seconds, the default is \"30\"")<<endl;
@@ -97,6 +99,8 @@ const struct option long_options [] = {
 	{"interval", 1, NULL, 'i'},
 	{"number", 1, NULL, 'n'},
 	{"referer", 1, NULL, 'r'},
+	{"cookie", 1, NULL, 'k'},
+	{"agent", 1, NULL, 'a'},
 	{"timeout", 1, NULL, 't'},
 	{"version", 0, NULL, 'v'},
 	{"proxy", 1, NULL, 'x'},
@@ -104,7 +108,7 @@ const struct option long_options [] = {
 	{NULL, 0, NULL, 0}
 };
 
-char short_options [] = "bc:d:f:hi:n:r:t:vx:";
+char short_options [] = "bc:d:f:hi:n:r:k:a:t:vx:";
 
 int
 main(int argc, char **argv)
@@ -161,6 +165,14 @@ main(int argc, char **argv)
 				break;
 			case 'n':
 				task.threadNum = atoi(optarg);
+				break;
+			case 'k':
+				printf("option cookie:%s\n", optarg);
+				task.set_cookie(optarg);
+				break;
+			case 'a':
+				printf("option user agent:%s\n", optarg);
+				task.set_agent(optarg);
 				break;
 			case 'r':
 				task.set_referer(optarg);
